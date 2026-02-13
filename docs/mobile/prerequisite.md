@@ -1,53 +1,56 @@
 # Setup Mobile Application - Prerequisite
 
-Prepare the following before building the MegaClassify mobile app.
+Before starting installation, make sure you have all required tools, accounts, and values ready.
 
-## Requirements
+## 1) Required Tools
 
-### Source & Tools
-- Latest MegaClassify mobile source from the official CodeCanyon package
-- **Flutter SDK (Required)**
-  - Recommended: **Flutter 3.22.x**
-  - Minimum: **Flutter 3.16+**
-  - Dart comes bundled with Flutter
-- Android Studio (Android build) + latest Android SDK tools
-- Xcode (iOS build, macOS required)
+- Latest MegaClassify mobile source code ZIP from CodeCanyon
+- **Flutter SDK**
+  - Recommended: **3.22.x**
+  - Minimum: **3.16+**
+- Android Studio + Android SDK
+- Java (required for Android builds)
+- Xcode (for iOS build, macOS only)
 
-### Backend & API
-- Working backend API deployed and reachable publicly
-- API Base URL (HTTPS recommended)
+## 2) Required Accounts
 
-**API Base URL Examples**
-- `https://api.example.com`
-- `https://api.yourdomain.com`
-- `https://apimega.megzed.com` (sample)
+- Firebase account (for Android app registration and `google-services.json`)
+- Google account (for Google Maps/Places API key if used)
+- Play Console account (for Android release publishing)
+- Apple Developer account (for iOS release publishing)
 
-### Release Build / Publishing
-- Android signing keystore (`.jks`) for Play Store release builds
-- iOS signing: Apple Developer account + Bundle ID + certificates/profiles
-- App package name / bundle ID finalized (changing later will break updates)
+## 3) Required Project Inputs
 
-## Configuration Inputs
+Keep these values prepared before installation:
 
-### API
-- `API_BASE_URL=https://api.example.com`
-  - Example: `API_BASE_URL=https://apimega.megzed.com`
-
-### App Identity
+### App identity
 - App name (display name)
 - Android package name (example: `com.example.megaclassify`)
-- iOS bundle identifier (example: `com.example.megaclassify`)
+- iOS bundle ID (example: `com.example.megaclassify`)
 
-### Optional (If Enabled)
-- Push notifications keys (Firebase)
-- Google Maps key (if location/maps features exist)
-- Deep links / App Links configuration (if share links or QR routes exist)
-- Payment keys (Razorpay/Stripe/PayPal/etc. if mobile payments enabled)
+### Backend and URLs
+- API host URL (example: `https://api.example.com`)
+- Frontend URL (example: `https://app.example.com`)
 
-## Recommended System Setup
+### API keys
+- Google Maps API key
+- Google Places API key
 
-### Flutter Environment Check
-Run:
+### Android release signing
+- Keystore file (`.jks`) for release build
+- `key.properties` values:
+  - `storePassword`
+  - `keyPassword`
+  - `keyAlias`
+  - `storeFile`
+
+## 4) Pre-check Commands
+
+Run these before setup:
+
 ```bash
-flutter doctor
 flutter --version
+flutter doctor
+```
+
+Fix any issues shown by `flutter doctor` before moving to the installation steps.
