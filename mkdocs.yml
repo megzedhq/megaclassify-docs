@@ -1,0 +1,69 @@
+site_name: MegaClassify Documentation
+site_url: https://megzedhq.github.io/megaclassify-docs/
+site_description: Official documentation portal for MegaClassify
+site_author: Megzed
+repo_name: megzedhq/megaclassify-docs
+repo_url: https://github.com/megzedhq/megaclassify-docs
+edit_uri: ""
+
+nav:
+  - Introduction: index.md
+  - Setup Admin Panel:
+      - Prerequisite: admin-panel/prerequisite.md
+      - Installation Steps: admin-panel/installation.md
+      - Configuration: admin-panel/configuration.md
+  - Setup Mobile Application:
+      - Prerequisite: mobile/prerequisite.md
+      - Setup & Build: mobile/setup.md
+  - Setup Web Application:
+      - Prerequisite: web/prerequisite.md
+      - Deploy Steps: web/deploy.md
+  - Features: features.md
+  - ChangeLog: changelog.md
+  - FAQs: faq.md
+  - Support: support.md
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+
+plugins:
+  - search
+
+extra:
+  homepage: https://megaclassify.megzed.com
+  api_url: https://apimega.megzed.com
+
+copyright: Copyright © Megzed. All rights reserved.
