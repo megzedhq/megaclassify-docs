@@ -1,5 +1,13 @@
 # Setup Admin Panel - Prerequisite
 
+<div class="setup-banner">
+  <div>
+    <h3>Need a Faster Launch? We Can Help With Setup</h3>
+    <p>Use the steps below for self-installation, or proceed directly to guided setup assistance.</p>
+  </div>
+  <a class="card-btn" href="installation/">Get Started</a>
+</div>
+
 The Admin Panel is the core of MegaClassify. Complete these requirements before installation.
 
 !!! info "CodeCanyon Buyers"
@@ -10,7 +18,7 @@ The Admin Panel is the core of MegaClassify. Complete these requirements before 
 Recommended production stack:
 
 - Linux (Ubuntu 20.04+/AlmaLinux/RockyLinux)
-- aaPanel installed for server control
+- cPanel/WHM access (or equivalent hosting control panel)
 - Nginx (recommended) or Apache
 - PHP 8.1+ with required extensions
 - MySQL 5.7+ or MariaDB 10.4+
@@ -43,7 +51,7 @@ Prepare:
 - Admin domain/subdomain (example: `admin.example.com`)
 - API endpoint domain if separated
 - DNS `A` record pointing to server IP
-- SSL certificate issuance readiness (Let's Encrypt via aaPanel)
+- SSL certificate issuance readiness (AutoSSL/Let's Encrypt in cPanel)
 
 ## 4) Database Preparation
 
@@ -66,14 +74,13 @@ Grant full privileges for this DB user on the created DB.
 
 ## 6) Folder Ownership & Permissions Strategy
 
-For aaPanel/Nginx, ensure web root ownership matches web user (often `www`):
+For cPanel hosting, keep Laravel writable directories accessible to the account user and web server process:
 
 ```bash
-chown -R www:www /www/wwwroot/{{YOUR_DOMAIN}}
-find /www/wwwroot/{{YOUR_DOMAIN}} -type f -exec chmod 644 {} \;
-find /www/wwwroot/{{YOUR_DOMAIN}} -type d -exec chmod 755 {} \;
-chmod -R 775 /www/wwwroot/{{YOUR_DOMAIN}}/storage
-chmod -R 775 /www/wwwroot/{{YOUR_DOMAIN}}/bootstrap/cache
+find /home/{{CPANEL_USER}}/{{APP_PATH}} -type f -exec chmod 644 {} \;
+find /home/{{CPANEL_USER}}/{{APP_PATH}} -type d -exec chmod 755 {} \;
+chmod -R 775 /home/{{CPANEL_USER}}/{{APP_PATH}}/storage
+chmod -R 775 /home/{{CPANEL_USER}}/{{APP_PATH}}/bootstrap/cache
 ```
 
 Avoid `777` in production.
