@@ -1,40 +1,107 @@
-# Setup Mobile Application - Setup & Build
+# Setup Mobile Application - Installation Steps
 
-Follow your package-specific mobile framework guide first, then use these general steps.
+This page provides a clear, step-by-step installation flow for the MegaClassify mobile app.
 
-## 1) Connect to API
+## 1) Unzip and Open the Project
 
-Set API endpoint to your deployed backend:
+1. Unzip the downloaded mobile app source package.
+2. Open the project folder in your editor/IDE.
 
-- Example: `https://apimega.megzed.com`
+## 2) Run Initial Flutter Commands
 
-## 2) Install Dependencies
+From the project root, run:
 
-Use the command set required by shipped framework (Flutter/React Native/etc.).
+```bash
+flutter clean
+flutter pub get
+```
 
-## 3) Configure Environment/Constants
+## 3) Create Firebase Project and Download JSON
 
-Update:
+1. Open [Firebase Console](https://console.firebase.google.com/).
+2. Create a **new project**.
+3. Add an **Android app** inside Firebase.
+4. Enter your Android **package name** and app name.
+5. Generate and download `google-services.json`.
 
-- Base URL
-- App identifiers
-- Feature flags
-- Payment/notification keys (if any)
+## 4) Place Firebase File in App
 
-## 4) Build App
+Copy the downloaded file to:
 
-Generate debug build first, then release build using your signing config.
+- `android/app/google-services.json`
 
-## 5) Troubleshooting
+## 5) Update Android App Identity and Keys
 
-### CORS / API Network Failures
+Open `android/app/src/main/AndroidManifest.xml` and verify/update:
 
-- Verify backend CORS allows mobile origin or wildcard policy as needed
-- Check SSL validity and TLS compatibility
-- Confirm API path/version matches mobile code expectations
+- Package name
+- App label (app name)
+- Google Maps API key (`meta-data` entry, if used)
 
-### Authentication Fails
+## 6) Update App Icon / Logo
 
-- Check API URL and auth endpoints
-- Validate server time/timezone
-- Verify credentials and token configuration
+Replace app launcher icons in the Android resources icon folders.
+
+Common locations include:
+
+- `android/app/src/main/res/mipmap-*`
+- Any project-specific icon/logo assets folder used by your app
+
+## 7) Generate Android Keystore (Release)
+
+Create a release keystore file and keep it inside:
+
+- `android/keystore/`
+
+Example command:
+
+```bash
+keytool -genkey -v -keystore android/keystore/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias release
+```
+
+## 8) Configure `key.properties`
+
+Create or update `android/key.properties`:
+
+```properties
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=release
+storeFile=keystore/release-key.jks
+```
+
+## 9) Update App Config Values
+
+Open:
+
+- `lib/core/config/app_config.dart`
+
+Update the following values:
+
+- Host URL (API base URL)
+- Frontend URL
+- Google Places API key
+
+## 10) Build the App
+
+After configuration is complete, build APK/AAB:
+
+```bash
+flutter build apk
+# or
+flutter build appbundle
+```
+
+---
+
+## Quick Checklist
+
+- [ ] `flutter clean` and `flutter pub get` completed
+- [ ] Firebase project created
+- [ ] `google-services.json` placed in `android/app/`
+- [ ] Manifest package name, app label, and Maps API key updated
+- [ ] App icons/logo replaced
+- [ ] Keystore generated in `android/keystore/`
+- [ ] `android/key.properties` updated
+- [ ] `lib/core/config/app_config.dart` updated
+- [ ] Release build generated successfully
