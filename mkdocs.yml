@@ -26,6 +26,8 @@ nav:
 theme:
   name: material
   language: en
+  logo: assets/applogo/android-chrome-512x512.png
+  favicon: assets/favicon/favicon.ico
   features:
     - navigation.tabs
     - navigation.sections
@@ -49,6 +51,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
+
 markdown_extensions:
   - admonition
   - attr_list
@@ -58,12 +61,14 @@ markdown_extensions:
       permalink: true
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
-plugins:
-  - search
 
-extra:
-  homepage: https://megaclassify.megzed.com
-  api_url: https://apimega.megzed.com
+
+extra_css:
+  - assets/stylesheets/extra.css
+
 
 copyright: Copyright © Megzed. All rights reserved.
