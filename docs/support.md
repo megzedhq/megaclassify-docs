@@ -2,6 +2,11 @@
 
 Need help with MegaClassify setup or troubleshooting?
 
+## Contact Support
+
+- Email: **megaclassify@gmail.com**
+- WhatsApp: **7032202023**
+
 ## Before Contacting Support
 
 Please prepare:

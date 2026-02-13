@@ -22,10 +22,10 @@ For better performance, configure worker/cron if package requires background job
 Typical scheduler cron:
 
 ```bash
-* * * * * cd /www/wwwroot/{{YOUR_DOMAIN}} && php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /home/{{CPANEL_USER}}/{{APP_PATH}} && php artisan schedule:run >> /dev/null 2>&1
 ```
 
-## 3) Nginx Best Practices
+## 3) Web Server Best Practices (Apache/Nginx)
 
 - Enforce HTTPS
 - Enable gzip/brotli (if available)
@@ -68,7 +68,7 @@ Use least-privilege settings and avoid world writable permissions.
 tail -n 200 storage/logs/laravel.log
 ```
 
-2. Check Nginx error log in aaPanel
+2. Check Apache/Nginx error logs from cPanel (Metrics/Errors or domain logs)
 3. Validate PHP version/extensions
 4. Re-run:
 
@@ -98,7 +98,8 @@ php artisan optimize:clear
 ### Permission Denied Errors
 
 ```bash
-chown -R www:www /www/wwwroot/{{YOUR_DOMAIN}}
+find /home/{{CPANEL_USER}}/{{APP_PATH}} -type f -exec chmod 644 {} \;
+find /home/{{CPANEL_USER}}/{{APP_PATH}} -type d -exec chmod 755 {} \;
 chmod -R 775 storage bootstrap/cache
 ```
 

@@ -1,62 +1,76 @@
-# MegaClassify Documentation
+<div class="hero hero-alt">
+  <p class="hero-tag">MegaClassify Help Center</p>
+  <h1>Launch Faster with MegaClassify Docs</h1>
+  <p>Step-by-step guides for the Admin Panel, Mobile App, and Web deployment workflow.</p>
+  <div class="hero-actions">
+    <a class="hero-btn" href="admin-panel/prerequisite/">Start Installation</a>
+    <a class="hero-link" href="support/">Need Support?</a>
+  </div>
+</div>
 
-Welcome to the official docs portal for **MegaClassify**. This site helps you deploy and operate the complete suite:
+<div class="landing-grid" markdown>
 
-- Admin Panel: https://megaclassify.megzed.com
-- API/Admin Endpoint: https://apimega.megzed.com
+<div class="doc-card featured" markdown>
 
-!!! info "CodeCanyon Buyers"
-    In addition to this online documentation, you must also follow the included documentation inside your **CodeCanyon ZIP package**. Use both together to ensure a complete and valid setup.
+### :material-cog-outline: Admin Setup
 
-## Quick Access
+Install backend services, prepare environment values, and verify production readiness.
 
-<div class="grid cards" markdown>
-
-- :material-shield-account: **Admin Panel**
-
-    ---
-
-    Install and configure the Laravel-based admin backend.
-
-    [:octicons-arrow-right-24: Open Admin Panel Docs](admin-panel/prerequisite.md)
-
-- :material-cellphone: **Mobile Application**
-
-    ---
-
-    Prepare environment and build the mobile app package.
-
-    [:octicons-arrow-right-24: Open Mobile Docs](mobile/prerequisite.md)
-
-- :material-monitor-dashboard: **Web Application**
-
-    ---
-
-    Deploy and configure the web frontend application.
-
-    [:octicons-arrow-right-24: Open Web Docs](web/prerequisite.md)
-
-- :material-star-circle: **Features**
-
-    ---
-
-    Explore MegaClassify capabilities and module overview.
-
-    [:octicons-arrow-right-24: View Features](features.md)
-
-- :material-history: **ChangeLog**
-
-    ---
-
-    Track releases, fixes, and version upgrades.
-
-    [:octicons-arrow-right-24: View ChangeLog](changelog.md)
+<a class="card-btn" href="admin-panel/prerequisite/">Open Admin Guide</a>
 
 </div>
 
-## Suggested Reading Order
+<div class="doc-card" markdown>
 
-1. Setup Admin Panel
-2. Setup Mobile Application
-3. Setup Web Application
-4. Review FAQs and Support
+### :material-android: Mobile Setup
+
+Configure SDKs, dependencies, and build release bundles for mobile devices.
+
+<a class="card-btn" href="mobile/prerequisite/">Open Mobile Guide</a>
+
+</div>
+
+<div class="doc-card" markdown>
+
+### :material-monitor-cellphone: Web Setup
+
+Deploy the web interface, connect API endpoints, and apply web environment settings.
+
+<a class="card-btn" href="web/prerequisite/">Open Web Guide</a>
+
+</div>
+
+<div class="doc-card" markdown>
+
+### :material-shape-plus: Product Features
+
+Review key modules and platform capabilities included in MegaClassify.
+
+<a class="card-btn" href="features/">Explore Features</a>
+
+</div>
+
+<div class="doc-card" markdown>
+
+### :material-clock-edit-outline: Release Notes
+
+Check version changes, fixes, and updates before upgrading your project.
+
+<a class="card-btn" href="changelog/">Read ChangeLog</a>
+
+</div>
+
+<div class="doc-card" markdown>
+
+### :material-lifebuoy: Help & Contact
+
+Reach support quickly with purchase details, logs, and issue screenshots.
+
+<a class="card-btn" href="support/">Contact Support</a>
+
+</div>
+
+</div>
+
+!!! info "CodeCanyon Buyers"
+    Use this portal together with your bundled CodeCanyon package documentation for full and accurate setup.
