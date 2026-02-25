@@ -36,7 +36,7 @@ Open `android/app/src/main/AndroidManifest.xml` and verify/update:
 
 - Package name
 - App label (app name)
-- Google Maps API key (`meta-data` entry, if used)
+- Google Maps API key (`meta-data` entry )
 
 ## 6) Update App Icon / Logo
 
@@ -44,10 +44,14 @@ Replace app launcher icons in the Android resources icon folders.
 
 Common locations include:
 
-- `android/app/src/main/res/mipmap-*`
+- `android/app/src/main/res/*`
 - Any project-specific icon/logo assets folder used by your app
 
-## 7) Generate Android Keystore (Release)
+## 7) Update App Splash Screen logo
+
+- `assets\images\splash_logo.png`
+
+## 8) Generate Android Keystore (Release)
 
 Create a release keystore file and keep it inside:
 
@@ -59,7 +63,7 @@ Example command:
 keytool -genkey -v -keystore android/keystore/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias release
 ```
 
-## 8) Configure `key.properties`
+## 9) Configure `key.properties`
 
 Create or update `android/key.properties`:
 
@@ -70,7 +74,7 @@ keyAlias=release
 storeFile=keystore/release-key.jks
 ```
 
-## 9) Update App Config Values
+## 10) Update App Config Values
 
 Open:
 
@@ -82,7 +86,7 @@ Update the following values:
 - Frontend URL
 - Google Places API key
 
-## 10) Build the App
+## 11) Build the App
 
 After configuration is complete, build APK/AAB:
 

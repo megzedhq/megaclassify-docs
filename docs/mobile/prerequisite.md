@@ -15,7 +15,7 @@ Before starting installation, make sure you have all required tools, accounts, a
 ## 2) Required Accounts
 
 - Firebase account (for Android app registration and `google-services.json`)
-- Google account (for Google Maps/Places API key if used)
+- Google Could Console account (for Google Maps/Places API key )
 - Play Console account (for Android release publishing)
 - Apple Developer account (for iOS release publishing)
 
@@ -30,7 +30,7 @@ Keep these values prepared before installation:
 
 ### Backend and URLs
 - API host URL (example: `https://api.example.com`)
-- Frontend URL (example: `https://app.example.com`)
+- Frontend URL (example: `https://example.com`)
 
 ### API keys
 - Google Maps API key

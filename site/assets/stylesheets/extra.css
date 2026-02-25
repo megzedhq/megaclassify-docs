@@ -45,7 +45,7 @@
 
 /* Logo size */
 .md-header__button.md-logo img {
-  height: 54px;
+  height: 34px;
 }
 
 /* Title + all header icons must be dark on white header */
@@ -296,34 +296,4 @@
     flex-direction: column;
     align-items: flex-start;
   }
-}
-
-/* Reduce overall left/right page gutters so content uses more width */
-.md-grid {
-  max-width: 1200px; /* increase from default ~61rem */
-}
-
-/* Make sidebar a bit narrower */
-@media (min-width: 76.25em) {
-  .md-sidebar--primary {
-    width: 15rem; /* default is bigger */
-  }
-}
-
-/* Reduce padding inside sidebar */
-.md-sidebar--primary .md-sidebar__scrollwrap {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
-/* Reduce extra space around the sidebar title/logo block */
-.md-nav__title {
-  padding-left: 0.75rem !important;
-  padding-right: 0.75rem !important;
-}
-
-/* Optional: make the sidebar site title smaller (less height/space) */
-.md-nav__title .md-nav__button,
-.md-nav__title .md-nav__ellipsis {
-  font-size: 0.95rem;
 }

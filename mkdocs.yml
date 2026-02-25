@@ -5,21 +5,27 @@ site_author: Megzed
 edit_uri: ""
 
 nav:
-  - Introduction: index.md
-  - Setup Admin Panel:
-      - Prerequisite: admin-panel/prerequisite.md
-      - Installation Steps: admin-panel/installation.md
-      - Configuration: admin-panel/configuration.md
-  - Setup Mobile Application:
-      - Prerequisite: mobile/prerequisite.md
-      - Setup & Build: mobile/setup.md
-  - Setup Web Application:
-      - Prerequisite: web/prerequisite.md
-      - Deploy Steps: web/deploy.md
-  - Features: features.md
-  - ChangeLog: changelog.md
-  - FAQs: faq.md
-  - Support: support.md
+  - 👋 Introduction: index.md
+
+  - 🛠️ Setup Admin Panel:
+      - ✅ Prerequisite: admin-panel/prerequisite.md
+      - ⚙️ Installation Steps: admin-panel/installation.md
+      - 🔧 Post-Install Settings: admin-panel/post-install-settings.md
+      - 🧩 Configuration: admin-panel/configuration.md
+
+  - 📱 Setup Mobile Application:
+      - ✅ Prerequisite: mobile/prerequisite.md
+      - 🧱 Setup & Build: mobile/setup.md
+
+  - 🌐 Setup Web Application:
+      - ✅ Prerequisite: web/prerequisite.md
+      - 🚀 Deploy Steps: web/deploy.md
+
+  - ✨ Features: features.md
+  - 🧾 ChangeLog: changelog.md
+  - ❓ FAQs: faq.md
+  - 🧑‍💻 Support: support.md
+
 
 theme:
   name: material

@@ -1,126 +1,256 @@
-# Setup Admin Panel - Installation Steps
+# Admin Panel Installation Guide (cPanel + Manual .env + Terminal + /install)
 
-This is the primary production installation flow for **cPanel-based hosting**.
+This guide is for beginners. Follow each step in order to install your Laravel Admin Panel (API backend) on cPanel shared hosting.
 
-!!! warning
-    Keep this guide aligned with the documentation bundled in your CodeCanyon ZIP. If package docs and this page differ by version, follow the package-specific instructions first.
+---
 
-## 1) Upload Project Files
+## 1) Create domain (cPanel → Domains)
 
-- Open **cPanel → File Manager**
-- Create app folder, e.g. `/home/{{CPANEL_USER}}/{{APP_PATH}}`
-- Upload and extract project files from CodeCanyon package
-- Confirm Laravel files exist (`artisan`, `app/`, `public/`, `vendor/` after Composer install)
+1. Log in to **cPanel**.
+2. Open **Domains**.
+3. Create a new domain/subdomain:
+   - `api.example.com`
+4. Note the folder path created by cPanel, for example:
+   - `/home/CPANELUSER/api.example.com`
 
-## 2) Set Public Web Root
+### Checklist
+- [ ] Domain/subdomain `api.example.com` is created
+- [ ] Domain folder exists in File Manager
 
-Point your domain/subdomain document root to Laravel `public` folder.
+✅ **Expected Result:** domain is created and folder exists.
 
-Example:
+> ⚠️ **Common Mistakes**
+> - Creating the domain with a typo (for example `ap1.example.com`).
+> - Using the wrong folder path later in terminal commands.
 
-- App root: `/home/{{CPANEL_USER}}/{{APP_PATH}}`
-- Web root: `/home/{{CPANEL_USER}}/{{APP_PATH}}/public`
+---
 
-For cPanel subdomains/addon domains, adjust document root in **Domains** settings.
+## 2) Create DB + user (cPanel → MySQL Databases)
 
-## 3) Create Database from cPanel
+1. Open **MySQL Databases** in cPanel.
+2. Create a new database (example):
+   - `example_api`
+3. Create a new database user (example):
+   - `example_user`
+4. Add the user to the database.
+5. Grant **ALL PRIVILEGES**.
 
-In **MySQL® Databases**:
+### Checklist
+- [ ] Database created
+- [ ] DB user created
+- [ ] User added to DB
+- [ ] ALL PRIVILEGES enabled
 
-- Create database: `{{DB_NAME}}`
-- Create database user: `{{DB_USER}}`
-- Set strong password
-- Add user to database with **ALL PRIVILEGES**
+✅ **Expected Result:** DB user has full access.
 
-## 4) Install PHP Dependencies
+> ⚠️ **Common Mistakes**
+> - Forgetting to add user to database.
+> - Not giving **ALL PRIVILEGES**.
+> - Forgetting cPanel prefixes (actual names often look like `cpuser_example_api`).
 
-Run from project root (SSH/Terminal):
+---
 
-```bash
-composer install --no-dev -o
-```
+## 3) Upload ZIP + unzip (cPanel → File Manager)
 
-## 5) Environment Setup
+1. Open **File Manager**.
+2. Go to:
+   - `/home/CPANELUSER/api.example.com`
+3. Upload your admin panel ZIP file.
+4. Extract/unzip the file in this same folder.
+5. Confirm these items exist:
+   - `artisan`
+   - `composer.json`
+   - `public/`
+   - `storage/`
+   - `bootstrap/cache/`
 
-```bash
-cp .env.example .env
-```
+### Checklist
+- [ ] ZIP uploaded
+- [ ] ZIP extracted
+- [ ] Laravel files/folders confirmed
 
-Edit `.env` with real values:
+✅ **Expected Result:** Laravel project files are present.
 
-```dotenv
-APP_NAME=MegaClassify
+> ⚠️ **Common Mistakes**
+> - Extracting ZIP into a subfolder (for example `/api.example.com/project-name/`) instead of the domain root.
+> - Uploading incomplete project files.
+
+---
+
+## 4) Manually edit `.env` (before installer)
+
+1. In **File Manager**, open `.env` in:
+   - `/home/CPANELUSER/api.example.com/.env`
+2. If `.env` is missing, create it by copying:
+   - `.env.example` → `.env`
+3. Fill/update these values:
+
+```env
+APP_NAME="Your App Name"
 APP_ENV=production
-APP_KEY=
 APP_DEBUG=false
-APP_URL=https://{{YOUR_DOMAIN}}
+APP_URL=https://api.example.com
 
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=localhost
 DB_PORT=3306
-DB_DATABASE={{DB_NAME}}
-DB_USERNAME={{DB_USER}}
-DB_PASSWORD={{DB_PASSWORD}}
-
-CACHE_DRIVER=file
-QUEUE_CONNECTION=sync
-SESSION_DRIVER=file
+DB_DATABASE=YOUR_DB_NAME
+DB_USERNAME=YOUR_DB_USER
+DB_PASSWORD="YOUR_DB_PASS"
 ```
 
-## 6) Generate App Key
+4. Save the file.
+5. Make sure `.env` is writable by your cPanel user.
+
+### Checklist
+- [ ] `.env` exists
+- [ ] DB values are correct
+- [ ] `APP_URL` is `https://api.example.com`
+- [ ] File saved successfully
+
+✅ **Expected Result:** `.env` has correct DB + URL values.
+
+> ⚠️ **Common Mistakes**
+> - Wrong DB credentials.
+> - Leaving `APP_DEBUG=true` in production.
+> - Setting `APP_URL` to the main website instead of API domain.
+
+---
+
+## 5) Set document root to `/public` (cPanel)
+
+1. Go to **cPanel → Domains**.
+2. Click **Manage** for `api.example.com`.
+3. Set **Document Root** to:
+
+```txt
+/home/CPANELUSER/api.example.com/public
+```
+
+4. Save changes.
+
+### Checklist
+- [ ] Document Root updated to `/public`
+- [ ] Saved in cPanel successfully
+
+✅ **Expected Result:** Laravel runs from `/public` (secure + correct).
+
+> ⚠️ **Common Mistakes**
+> - Keeping document root at `/home/CPANELUSER/api.example.com` (not secure and usually breaks routing).
+
+---
+
+## 6) Run terminal commands (cPanel → Terminal or SSH)
+
+Run these commands in order.
 
 ```bash
+cd /home/CPANELUSER/api.example.com
+composer install --no-dev --optimize-autoloader
 php artisan key:generate
-```
-
-## 7) Run Migrations
-
-```bash
-php artisan migrate --force
-```
-
-## 8) Create Storage Symlink
-
-```bash
+php artisan optimize:clear
 php artisan storage:link
+chmod -R 775 storage bootstrap/cache
 ```
 
-## 9) Clear/Optimize Cached Artifacts
+### Checklist
+- [ ] `vendor/` folder created
+- [ ] No fatal permission errors
+- [ ] `public/storage` exists as a symlink
+
+✅ **Expected Result:**
+- `vendor/` exists
+- no permission errors
+- `public/storage` is a symlink
+
+> ⚠️ **Common Mistakes**
+> - Running commands in the wrong folder.
+> - Composer not available in cPanel environment.
+> - Permissions not updated for `storage` and `bootstrap/cache`.
+
+---
+
+## 7) Open `/install` and finish wizard
+
+1. Open:
+   - `https://api.example.com/install`
+2. **Screen 1:** Requirements check (PHP extensions, permissions, storage paths).
+3. Continue to the next screen.
+4. Fill installer fields:
+   - Database details
+   - Host URL
+   - Public Site URL (if shown)
+5. Click **Install**.
+
+### Finish screen should show
+- Admin login URL
+- Login email
+- Login password
+
+### Checklist
+- [ ] Requirements passed
+- [ ] Install process completed
+- [ ] Credentials shown on finish screen
+
+✅ **Expected Result:** install completed and admin URL shown.
+
+> ⚠️ **Common Mistakes**
+> - Trying to run installer before `.env` is correct.
+> - Ignoring failed requirements (permissions/extensions).
+
+## 10) Troubleshooting
+
+### 1. 500 error after document root change
+- Confirm document root is exactly:
+  - `/home/CPANELUSER/api.example.com/public`
+- Confirm project files are one level above `public`.
+- Run:
 
 ```bash
+cd /home/CPANELUSER/api.example.com
 php artisan optimize:clear
 ```
 
-## 10) Apply Final Permissions
+### 2. DB connection failed
+- Recheck `.env` values:
+  - `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
+- Ensure DB user is added to DB with **ALL PRIVILEGES**.
+- Remember cPanel DB names often include account prefix.
+
+### 3. Composer install failed
+- If memory limit error appears, increase PHP/CLI memory in cPanel if available.
+- If `composer` command is missing, use host-provided Composer path or ask hosting support to enable Composer.
+
+### 4. `storage` / `bootstrap/cache` not writable
+- Re-run:
 
 ```bash
-find /home/{{CPANEL_USER}}/{{APP_PATH}} -type f -exec chmod 644 {} \;
-find /home/{{CPANEL_USER}}/{{APP_PATH}} -type d -exec chmod 755 {} \;
-chmod -R 775 /home/{{CPANEL_USER}}/{{APP_PATH}}/storage
-chmod -R 775 /home/{{CPANEL_USER}}/{{APP_PATH}}/bootstrap/cache
+cd /home/CPANELUSER/api.example.com
+chmod -R 775 storage bootstrap/cache
 ```
 
-## 11) SSL Enablement
+### 5. `public/storage` not working
+- `public/storage` must be a symlink, not a normal folder.
+- Fix by removing wrong folder and running:
 
-In cPanel:
+```bash
+cd /home/CPANELUSER/api.example.com
+php artisan storage:link
+```
 
-- Open **SSL/TLS Status**
-- Run AutoSSL (or install custom certificate)
-- Force HTTPS from domain settings / redirect rules
+### 6. Seeder skipped (DB already has users)
+- This is normal if database is not fresh.
+- Installer usually seeds only on a fresh/empty DB.
+- Existing users/data remain unchanged.
 
-## 12) Buyer Verification Checklist (Install Gate)
+### 7. `/install` still accessible after install
+- Check if lock file exists:
+  - `storage/app/installed.lock`
+- If missing, verify write permissions.
+- If lock exists but page still opens, review installer middleware/route protection in your codebase.
 
-- [ ] Purchase code confirmed
-- [ ] Buyer details match CodeCanyon account
-- [ ] Package source is official download
-- [ ] No nulled/modified core package used
-- [ ] All required setup files from ZIP preserved
+✅ **Expected Result:** common issues are identified and fixed quickly.
 
-## 13) Post-Install Smoke Test
-
-- Open `https://{{YOUR_DOMAIN}}`
-- Verify homepage and login load
-- Login to admin user
-- Create test category/listing
-- Upload a test image
-- Confirm image visible in frontend/admin
+> ⚠️ **Common Mistakes**
+> - Changing many settings at once and not retesting step-by-step.
+> - Not clearing cache after config fixes.
