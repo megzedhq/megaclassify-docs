@@ -2,12 +2,12 @@
 
 This page provides a clear, step-by-step installation flow for the MegaClassify mobile app.
 
-## 1) Unzip and Open the Project
+## 1) Unzip and open the project
 
 1. Unzip the downloaded mobile app source package.
 2. Open the project folder in your editor/IDE.
 
-## 2) Run Initial Flutter Commands
+## 2) Run initial Flutter commands
 
 From the project root, run:
 
@@ -16,46 +16,45 @@ flutter clean
 flutter pub get
 ```
 
-## 3) Create Firebase Project and Download JSON
+## 3) Create Firebase project and app registrations
 
 1. Open [Firebase Console](https://console.firebase.google.com/).
 2. Create a **new project**.
-3. Add an **Android app** inside Firebase.
-4. Enter your Android **package name** and app name.
-5. Generate and download `google-services.json`.
+3. Add an **Android app** with your package name.
+4. Add an **iOS app** with your bundle ID.
+5. Download:
+   - `google-services.json` (Android)
+   - `GoogleService-Info.plist` (iOS)
 
-## 4) Place Firebase File in App
+## 4) Place Firebase files
 
-Copy the downloaded file to:
+Copy downloaded files to:
 
 - `android/app/google-services.json`
+- `ios/Runner/GoogleService-Info.plist`
 
-## 5) Update Android App Identity and Keys
+## 5) Update app identity, URLs, and keys
 
-Open `android/app/src/main/AndroidManifest.xml` and verify/update:
+Update your project configuration values:
 
-- Package name
-- App label (app name)
-- Google Maps API key (`meta-data` entry )
+- Android package name
+- iOS bundle ID
+- App display name
+- Host URL / API base URL (example: `https://admin.yourdomain.com/api/v1`)
+- Frontend URL
+- Google Maps/Places keys
 
-## 6) Update App Icon / Logo
+## 6) Update Android/iOS branding assets
 
-Replace app launcher icons in the Android resources icon folders.
+- Replace launcher icons
+- Replace splash logo (`assets/images/splash_logo.png`)
+- Verify app name on both Android and iOS targets
 
-Common locations include:
+## 7) Configure Android release signing
 
-- `android/app/src/main/res/*`
-- Any project-specific icon/logo assets folder used by your app
+Create a release keystore and keep it in project:
 
-## 7) Update App Splash Screen logo
-
-- `assets\images\splash_logo.png`
-
-## 8) Generate Android Keystore (Release)
-
-Create a release keystore file and keep it inside:
-
-- `android/keystore/`
+- `android/keystore/release-key.jks`
 
 Example command:
 
@@ -63,9 +62,7 @@ Example command:
 keytool -genkey -v -keystore android/keystore/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias release
 ```
 
-## 9) Configure `key.properties`
-
-Create or update `android/key.properties`:
+Update `android/key.properties`:
 
 ```properties
 storePassword=YOUR_STORE_PASSWORD
@@ -74,38 +71,44 @@ keyAlias=release
 storeFile=keystore/release-key.jks
 ```
 
-## 10) Update App Config Values
+## 8) Build release binaries
 
-Open:
-
-- `lib/core/config/app_config.dart`
-
-Update the following values:
-
-- Host URL (API base URL)
-- Frontend URL
-- Google Places API key
-
-## 11) Build the App
-
-After configuration is complete, build APK/AAB:
+Android release:
 
 ```bash
-flutter build apk
+flutter build apk --release
 # or
-flutter build appbundle
+flutter build appbundle --release
 ```
+
+iOS release (macOS + Xcode):
+
+```bash
+flutter build ios --release
+```
+
+## 9) Final real-device validation
+
+Before publishing, test on physical devices:
+
+- Login and registration
+- Listing browse/search
+- Create listing flow
+- Chat/messaging
+- Push notifications
+- Deep links / app links (if enabled)
 
 ---
 
-## Quick Checklist
+## Quick checklist
 
 - [ ] `flutter clean` and `flutter pub get` completed
-- [ ] Firebase project created
+- [ ] Firebase Android + iOS apps created
 - [ ] `google-services.json` placed in `android/app/`
-- [ ] Manifest package name, app label, and Maps API key updated
-- [ ] App icons/logo replaced
-- [ ] Keystore generated in `android/keystore/`
-- [ ] `android/key.properties` updated
-- [ ] `lib/core/config/app_config.dart` updated
-- [ ] Release build generated successfully
+- [ ] `GoogleService-Info.plist` placed in `ios/Runner/`
+- [ ] API URL points to production backend
+- [ ] Package/bundle IDs updated
+- [ ] Keystore and `key.properties` configured
+- [ ] Release APK/AAB built successfully
+- [ ] iOS release build generated (if applicable)
+- [ ] Real-device end-to-end tests passed
