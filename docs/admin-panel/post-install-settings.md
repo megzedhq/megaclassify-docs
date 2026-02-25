@@ -1,6 +1,6 @@
 # Post-Install Settings (Admin Panel)
 
-After your `/install` wizard is completed and you can login to the admin panel, do these settings to make the system fully working.
+After your `/install` wizard is completed and you can login to the admin panel, finish these settings to make the system production-ready.
 
 ---
 
@@ -13,7 +13,7 @@ After your `/install` wizard is completed and you can login to the admin panel, 
 
 ---
 
-## 2) Firebase / Google Settings
+## 2) Firebase / Google settings
 
 Go to:
 
@@ -36,7 +36,35 @@ Go to:
 
 ---
 
-## 3) SMTP Email Settings
+## 3) Firebase Authorised Domains (for web auth)
+
+In Firebase Console:
+
+**Authentication → Settings → Authorised domains**
+
+Add your production domains:
+
+- `yourdomain.com`
+- `www.yourdomain.com`
+- admin domain if auth redirects happen there
+
+### Checklist
+- [ ] Frontend domains are added
+- [ ] Auth/login no longer throws unauthorized-domain errors
+
+---
+
+## 4) Push Notification setup (FCM)
+
+In Admin Panel, open push notification settings and add your FCM key/config required by your package version.
+
+### Checklist
+- [ ] FCM config saved in admin panel
+- [ ] Test push notification is delivered
+
+---
+
+## 5) SMTP email settings
 
 Go to:
 
@@ -64,7 +92,7 @@ Go to:
 
 ---
 
-## 4) AI Settings (OpenAI / Gemini)
+## 6) AI settings (OpenAI / Gemini)
 
 Go to:
 
@@ -85,7 +113,7 @@ Go to:
 
 ---
 
-## 5) Final Verification
+## 7) Final verification
 
 ✅ Confirm these work:
 - Admin login works
@@ -93,3 +121,5 @@ Go to:
 - Uploads work (`public/storage`)
 - Email works (test email)
 - AI works (test prompt)
+- Mobile login + push flow works
+- Web login works without unauthorized-domain errors
