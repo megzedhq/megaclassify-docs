@@ -1,23 +1,56 @@
 # Setup Mobile Application - Prerequisite
 
-Prepare the following before building the MegaClassify mobile app.
+Before starting installation, make sure you have all required tools, accounts, and values ready.
 
-## Requirements
+## 1) Required Tools
 
-- Latest project source from official package
-- Android Studio / Xcode (depending on target platform)
-- Supported Flutter/React Native stack (based on packaged source)
-- API base URL from deployed backend
-- Valid signing credentials/keystore for release builds
+- Latest MegaClassify mobile source code ZIP from CodeCanyon
+- **Flutter SDK**
+  - Recommended: **3.22.x**
+  - Minimum: **3.16+**
+- Android Studio + Android SDK
+- Java (required for Android builds)
+- Xcode (for iOS build, macOS only)
 
-## Configuration Inputs
+## 2) Required Accounts
 
-- `API_BASE_URL=https://apimega.megzed.com`
-- App name, bundle ID/package name
-- Push notification keys (if enabled)
+- Firebase account (for Android app registration and `google-services.json`)
+- Google Could Console account (for Google Maps/Places API key )
+- Play Console account (for Android release publishing)
+- Apple Developer account (for iOS release publishing)
 
-## Buyer Checklist
+## 3) Required Project Inputs
 
-- [ ] Purchased and downloaded official CodeCanyon package
-- [ ] Reviewed included mobile setup guide in ZIP
-- [ ] Confirmed backend API is live before app testing
+Keep these values prepared before installation:
+
+### App identity
+- App name (display name)
+- Android package name (example: `com.example.megaclassify`)
+- iOS bundle ID (example: `com.example.megaclassify`)
+
+### Backend and URLs
+- API host URL (example: `https://api.example.com`)
+- Frontend URL (example: `https://example.com`)
+
+### API keys
+- Google Maps API key
+- Google Places API key
+
+### Android release signing
+- Keystore file (`.jks`) for release build
+- `key.properties` values:
+  - `storePassword`
+  - `keyPassword`
+  - `keyAlias`
+  - `storeFile`
+
+## 4) Pre-check Commands
+
+Run these before setup:
+
+```bash
+flutter --version
+flutter doctor
+```
+
+Fix any issues shown by `flutter doctor` before moving to the installation steps.

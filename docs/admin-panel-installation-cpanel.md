@@ -1,6 +1,6 @@
 # Admin Panel Installation Guide (cPanel + Manual .env + Terminal + /install)
 
-This guide is for beginners. Follow each step in order to install the MegaClassify Laravel Admin Panel (API backend) on cPanel shared hosting.
+This guide is for beginners. Follow each step in order to install your Laravel Admin Panel (API backend) on cPanel shared hosting.
 
 ---
 
@@ -147,11 +147,16 @@ Run these commands in order.
 ```bash
 cd /home/CPANELUSER/api.example.com
 composer install --no-dev --optimize-autoloader
+composer dump-autoload
 php artisan key:generate
 php artisan optimize:clear
 php artisan storage:link
 chmod -R 775 storage bootstrap/cache
 ```
+
+### Notes
+- `composer dump-autoload` is optional, but useful if autoload issues appear.
+- `php artisan optimize:clear` is optional but recommended.
 
 ### Checklist
 - [ ] `vendor/` folder created
@@ -182,6 +187,13 @@ chmod -R 775 storage bootstrap/cache
    - Public Site URL (if shown)
 5. Click **Install**.
 
+### What the installer does
+- Runs `migrate --force`
+- Runs `db:seed --force` **only if DB is fresh/empty**
+- Runs `storage:link` again
+- Creates lock file:
+  - `storage/app/installed.lock`
+
 ### Finish screen should show
 - Admin login URL
 - Login email
@@ -200,38 +212,58 @@ chmod -R 775 storage bootstrap/cache
 
 ---
 
-## 8) Verify API + storage after install
+## 8) Installation lock (after success)
 
-Run these checks before moving to mobile/web setup:
+After a successful install, the lock file should exist:
 
-```bash
-curl -I https://api.example.com
-curl https://api.example.com/api/v1/ping
+```txt
+storage/app/installed.lock
 ```
 
-Also verify image upload path:
-
-- `public/storage` must point to `storage/app/public`
-- Upload one test image from admin panel and confirm it loads on the frontend URL
+This lock must block future access to `/install`.
 
 ### Checklist
-- [ ] API domain responds over HTTPS
-- [ ] Ping endpoint returns JSON
-- [ ] Uploaded image renders correctly
+- [ ] `installed.lock` exists after install
+- [ ] `/install` is blocked after install
 
-✅ **Expected Result:** backend is reachable and ready for app integrations.
+✅ **Expected Result:** `/install` is blocked after install.
+
+> ⚠️ **Common Mistakes**
+> - Lock file missing due to write permission problems.
+> - Custom routes/middleware accidentally leaving `/install` open.
 
 ---
 
-## 9) aaPanel alternative (if not using cPanel)
+## 9) Login + post setup
 
-If you deploy on **aaPanel**, keep the same Laravel principles:
+1. Open admin login URL from installer finish screen.
+2. Log in with installer credentials.
+3. Complete post-setup sections:
 
-- Site root should point to Laravel `public/`
-- PHP version/extensions must match requirements
-- Run the same Laravel setup commands
-- Ensure `storage/` and `bootstrap/cache/` are writable
-- Configure SSL before go-live
+### A) Firebase / Google settings
+- Upload service account JSON
+- Fill required Firebase/Google keys
+
+### B) SMTP email settings
+- Set SMTP host, port, username, password
+- Set encryption (`tls`/`ssl`)
+- Set From name and From email
+- Send a test email
+
+### C) AI settings
+- Add OpenAI API key and/or Gemini API key
+
+### Checklist
+- [ ] Firebase configured
+- [ ] SMTP test email sent successfully
+- [ ] AI API keys saved and tested
+
+✅ **Expected Result:** Firebase, Email, and AI integrations are working.
+
+> ⚠️ **Common Mistakes**
+> - Invalid JSON file for Firebase.
+> - Wrong SMTP port/encryption combination.
+> - API keys saved with extra spaces or quotes.
 
 ---
 

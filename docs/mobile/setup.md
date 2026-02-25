@@ -1,40 +1,114 @@
-# Setup Mobile Application - Setup & Build
+# Setup Mobile Application - Installation Steps
 
-Follow your package-specific mobile framework guide first, then use these general steps.
+This page provides a clear, step-by-step installation flow for the MegaClassify mobile app.
 
-## 1) Connect to API
+## 1) Unzip and open the project
 
-Set API endpoint to your deployed backend:
+1. Unzip the downloaded mobile app source package.
+2. Open the project folder in your editor/IDE.
 
-- Example: `https://apimega.megzed.com`
+## 2) Run initial Flutter commands
 
-## 2) Install Dependencies
+From the project root, run:
 
-Use the command set required by shipped framework (Flutter/React Native/etc.).
+```bash
+flutter clean
+flutter pub get
+```
 
-## 3) Configure Environment/Constants
+## 3) Create Firebase project and app registrations
 
-Update:
+1. Open [Firebase Console](https://console.firebase.google.com/).
+2. Create a **new project**.
+3. Add an **Android app** with your package name.
+4. Add an **iOS app** with your bundle ID.
+5. Download:
+   - `google-services.json` (Android)
+   - `GoogleService-Info.plist` (iOS)
 
-- Base URL
-- App identifiers
-- Feature flags
-- Payment/notification keys (if any)
+## 4) Place Firebase files
 
-## 4) Build App
+Copy downloaded files to:
 
-Generate debug build first, then release build using your signing config.
+- `android/app/google-services.json`
+- `ios/Runner/GoogleService-Info.plist`
 
-## 5) Troubleshooting
+## 5) Update app identity, URLs, and keys
 
-### CORS / API Network Failures
+Update your project configuration values:
 
-- Verify backend CORS allows mobile origin or wildcard policy as needed
-- Check SSL validity and TLS compatibility
-- Confirm API path/version matches mobile code expectations
+- Android package name
+- iOS bundle ID
+- App display name
+- Host URL / API base URL (example: `https://admin.yourdomain.com/api/v1`)
+- Frontend URL
+- Google Maps/Places keys
 
-### Authentication Fails
+## 6) Update Android/iOS branding assets
 
-- Check API URL and auth endpoints
-- Validate server time/timezone
-- Verify credentials and token configuration
+- Replace launcher icons
+- Replace splash logo (`assets/images/splash_logo.png`)
+- Verify app name on both Android and iOS targets
+
+## 7) Configure Android release signing
+
+Create a release keystore and keep it in project:
+
+- `android/keystore/release-key.jks`
+
+Example command:
+
+```bash
+keytool -genkey -v -keystore android/keystore/release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias release
+```
+
+Update `android/key.properties`:
+
+```properties
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=release
+storeFile=keystore/release-key.jks
+```
+
+## 8) Build release binaries
+
+Android release:
+
+```bash
+flutter build apk --release
+# or
+flutter build appbundle --release
+```
+
+iOS release (macOS + Xcode):
+
+```bash
+flutter build ios --release
+```
+
+## 9) Final real-device validation
+
+Before publishing, test on physical devices:
+
+- Login and registration
+- Listing browse/search
+- Create listing flow
+- Chat/messaging
+- Push notifications
+- Deep links / app links (if enabled)
+
+---
+
+## Quick checklist
+
+- [ ] `flutter clean` and `flutter pub get` completed
+- [ ] Firebase Android + iOS apps created
+- [ ] `google-services.json` placed in `android/app/`
+- [ ] `GoogleService-Info.plist` placed in `ios/Runner/`
+- [ ] API URL points to production backend
+- [ ] Package/bundle IDs updated
+- [ ] Keystore and `key.properties` configured
+- [ ] Release APK/AAB built successfully
+- [ ] iOS release build generated (if applicable)
+- [ ] Real-device end-to-end tests passed
