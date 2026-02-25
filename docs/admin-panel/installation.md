@@ -1,6 +1,6 @@
 # Admin Panel Installation Guide (cPanel + Manual .env + Terminal + /install)
 
-This guide is for beginners. Follow each step in order to install your Laravel Admin Panel (API backend) on cPanel shared hosting.
+This guide is for beginners. Follow each step in order to install the MegaClassify Laravel Admin Panel (API backend) on cPanel shared hosting.
 
 ---
 
@@ -197,6 +197,43 @@ chmod -R 775 storage bootstrap/cache
 > ⚠️ **Common Mistakes**
 > - Trying to run installer before `.env` is correct.
 > - Ignoring failed requirements (permissions/extensions).
+
+---
+
+## 8) Verify API + storage after install
+
+Run these checks before moving to mobile/web setup:
+
+```bash
+curl -I https://api.example.com
+curl https://api.example.com/api/v1/ping
+```
+
+Also verify image upload path:
+
+- `public/storage` must point to `storage/app/public`
+- Upload one test image from admin panel and confirm it loads on the frontend URL
+
+### Checklist
+- [ ] API domain responds over HTTPS
+- [ ] Ping endpoint returns JSON
+- [ ] Uploaded image renders correctly
+
+✅ **Expected Result:** backend is reachable and ready for app integrations.
+
+---
+
+## 9) aaPanel alternative (if not using cPanel)
+
+If you deploy on **aaPanel**, keep the same Laravel principles:
+
+- Site root should point to Laravel `public/`
+- PHP version/extensions must match requirements
+- Run the same Laravel setup commands
+- Ensure `storage/` and `bootstrap/cache/` are writable
+- Configure SSL before go-live
+
+---
 
 ## 10) Troubleshooting
 

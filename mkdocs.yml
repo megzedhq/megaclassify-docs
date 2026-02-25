@@ -7,6 +7,8 @@ edit_uri: ""
 nav:
   - 👋 Introduction: index.md
 
+  - 📘 Complete DOCX Guide: complete-installation-guide.md
+
   - 🛠️ Setup Admin Panel:
       - ✅ Prerequisite: admin-panel/prerequisite.md
       - ⚙️ Installation Steps: admin-panel/installation.md
